@@ -1,4 +1,4 @@
-# Squirrel: Iran Web Crawler
+# 🐿 Squirrel: Iran Web Crawler
 
 Squirrel is a web crawler that allows you to collect all pages from Iranian websites. Using this crawler, you can download the content of web pages and store it in a specified structure.
 
@@ -43,6 +43,24 @@ To run the crawler with 20 concurrent requests and save data in the `my_data` di
 
 ```bash
 python -m squirrel --max-concurrent 20 --batch-size 5 --skip-test --base-path "./my_data"
+```
+
+or
+
+```python
+from asyncio import run
+
+from squirrel import main
+
+if __name__ == "__main__":
+    run(
+        main(
+            max_concurrent=50,
+            batch_size=5,
+            skip_test=False,
+            base_path="./data",
+        )
+    )
 ```
 
 ## Contributing
