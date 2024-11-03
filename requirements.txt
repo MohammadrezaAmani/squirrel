@@ -1,0 +1,2 @@
+aiofiles>=24
+aiohttp>=3
