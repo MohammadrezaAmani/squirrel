@@ -8,6 +8,7 @@ import aiofiles
 import aiohttp
 
 from squirrel.cache import Cache
+from squirrel.conf import ALLOWED_CONTENT_TYPES
 from squirrel.utils import batch_list, extract_links, find_name, fix_url, valid_urls
 
 global counter
@@ -21,7 +22,6 @@ async def get_website(
     url: str,
     semaphore: Semaphore,
     test: bool = True,
-    cache: Cache | None = None,
 ) -> None | bytes:
     con = not test
     result = None
@@ -31,7 +31,9 @@ async def get_website(
                 async with session.head(url) as response:
                     content_type = response.headers.get("Content-Type", "")
                     con = True
-                    if "html" not in content_type and "json" not in content_type:
+                    if all(
+                        [ctype_ not in content_type for ctype_ in ALLOWED_CONTENT_TYPES]
+                    ):
                         con = False
             if con:
                 async with session.get(url) as response:
@@ -78,7 +80,7 @@ async def crawl_url(
     test: bool = True,
     cache: Cache | None = None,
 ):
-    content = await get_website(session, url, semaphore, test, cache)
+    content = await get_website(session, url, semaphore, test)
     if not content:
         return None
 
