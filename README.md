@@ -1,4 +1,4 @@
-# 🐿 Squirrel: Iran Web Crawler
+# 🐿️ Squirrel: Iran Web Crawler
 
 Squirrel is a web crawler that allows you to collect all pages from Iranian websites. Using this crawler, you can download the content of web pages and store it in a specified structure.
 
